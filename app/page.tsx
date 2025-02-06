@@ -7,11 +7,11 @@ import FormComponent from "./components/FormComponent";
 import TransactionsComponent from "./components/TransactionsComponent";
 import EditformComponent from "./components/EditformComponent";
 export default function Home() {
-  const { togglereport, toggleform, toggletrans,toggleeditform } = useGlobalState();
+  const { togglereport, toggleform, toggletrans, toggleeditform } =
+    useGlobalState();
 
   return (
     <>
-      
       <div className="header flex justify-center text-4xl font-bold my-4">
         <p>Income Expend App</p>
       </div>
@@ -29,7 +29,6 @@ export default function Home() {
       </div>
       <div className="header flex justify-center text-4xl font-bold my-4">
         {!toggletrans && <TransactionsComponent />}
-       
       </div>
     </>
   );

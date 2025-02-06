@@ -1,9 +1,8 @@
-'use client'
+"use client";
 import React from "react";
 import { useGlobalState } from "../globalstate";
 const ReportComponent = () => {
-
-  const report = useGlobalState().report
+  const report = useGlobalState().report;
 
   return (
     <div className="Report-Component my-4">

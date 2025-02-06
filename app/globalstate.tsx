@@ -7,7 +7,6 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
-  use,
 } from "react";
 
 interface transactionProps {
@@ -33,11 +32,11 @@ interface GlobalStateType {
   togglereport: boolean;
   toggletrans: boolean;
   toggleform: boolean;
-  toggleeditform:boolean;
+  toggleeditform: boolean;
   report: transactionProps["report"];
   setReport: Dispatch<SetStateAction<transactionProps["report"]>>;
-  idforedit:string
-  setIdforedit:Dispatch<SetStateAction<string>>
+  idforedit: string;
+  setIdforedit: Dispatch<SetStateAction<string>>;
 }
 
 // ➜ สร้าง Context
@@ -54,7 +53,7 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
   const [toggleform, setToggleform] = useState<boolean>(false);
   const [toggletrans, setToggletrans] = useState<boolean>(false);
   const [toggleeditform, setToggleeditform] = useState<boolean>(false);
-  const [idforedit,setIdforedit] = useState<string>("")
+  const [idforedit, setIdforedit] = useState<string>("");
   const [report, setReport] = useState<transactionProps["report"]>({
     sumin: 0,
     sumex: 0,
@@ -80,7 +79,6 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
     });
 
     console.log(transactions);
-    
   }, [transactions]);
   return (
     <GlobalStateContext.Provider
@@ -98,7 +96,7 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
         toggleeditform,
         toggletrans,
         setIdforedit,
-        idforedit
+        idforedit,
       }}
     >
       {children}
