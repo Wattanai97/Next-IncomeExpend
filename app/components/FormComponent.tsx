@@ -40,7 +40,7 @@ const FormComponent = () => {
     <div className="Trans-Component my-4">
       <form
         onSubmit={formsubmit}
-        className="max-w-md mx-auto bg-gray- p-6 w-72"
+        className="max-w-md mx-auto bg-gray- p-6 w-72 rounded-md border-2 border-green-600"
       >
         <div className="relative z-0 w-full mb-5 group">
           <input
