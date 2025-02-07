@@ -16,9 +16,6 @@ const FormComponent = () => {
   };
   const formsubmit = async (event: FormEvent) => {
     event.preventDefault();
-    if (title.trim().length === 0 || amount.trim().length === 0) {
-      return alert("โปรดกรอกข้อมูลให้ครบถ้วน");
-    }
     const newtransaction = await {
       id: uuidv4(),
       title: title,
@@ -64,7 +61,7 @@ const FormComponent = () => {
           <input
             value={amount}
             onChange={changeamount}
-            type="text"
+            type="number"
             name="amount"
             id="amount"
             className="block py-2.5 px-0 w-full text-sm text-gray-200 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer"

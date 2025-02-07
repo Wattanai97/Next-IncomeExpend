@@ -21,9 +21,10 @@ interface transactionProps {
     result: number;
   };
 }
+
 // 🎯 กำหนด Type ของ State
 interface GlobalStateType {
-  transactions: transactionProps["transactions"];
+  transactions: transactionProps["transactions"]// transactionProps["transactions"];
   setTransactions: Dispatch<SetStateAction<transactionProps["transactions"]>>;
   setTogglereport: Dispatch<SetStateAction<boolean>>;
   setToggleform: Dispatch<SetStateAction<boolean>>;
@@ -46,15 +47,13 @@ const GlobalStateContext = createContext<GlobalStateType | undefined>(
 
 // ➜ สร้าง Provider
 export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
-  const [transactions, setTransactions] = useState<
-    transactionProps["transactions"]
-  >([]);
+  const [transactions, setTransactions] = useState<GlobalStateType["transactions"]>([])
   const [togglereport, setTogglereport] = useState<boolean>(false);
   const [toggleform, setToggleform] = useState<boolean>(false);
   const [toggletrans, setToggletrans] = useState<boolean>(false);
   const [toggleeditform, setToggleeditform] = useState<boolean>(false);
   const [idforedit, setIdforedit] = useState<string>("");
-  const [report, setReport] = useState<transactionProps["report"]>({
+  const [report, setReport] = useState<GlobalStateType["report"]>({
     sumin: 0,
     sumex: 0,
     result: 0,

@@ -11,9 +11,9 @@ export default function Home() {
     useGlobalState();
 
   return (
-    <>
-      <div className="header flex justify-center text-4xl font-bold my-4">
-        <p>Income Expend App</p>
+    <div className="mx-4 xs:mx-6 ">
+      <div className="header my-4">
+        <p className="text-2xl font-bold xs:text-2xl md:text-4xl text-center">Income Expend App</p>
       </div>
       <div className="header flex justify-center text-4xl font-bold my-4">
         <DropdownComponent />
@@ -30,6 +30,6 @@ export default function Home() {
       <div className="header flex justify-center text-4xl font-bold my-4">
         {!toggletrans && <TransactionsComponent />}
       </div>
-    </>
+    </div>
   );
 }

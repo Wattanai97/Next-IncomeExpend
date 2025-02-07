@@ -33,7 +33,7 @@ const TransactionsComponent = () => {
 
   if (!transactions || transactions.length == 0) {
     return (
-      <p className="text-center text-4xl font-bold text-white my-4">
+      <p className="text-center text-2xl xs:text-2.5xl md:text-3xl font-bold text-white my-4">
         ไม่พบรายการของคุณ
       </p>
     );
