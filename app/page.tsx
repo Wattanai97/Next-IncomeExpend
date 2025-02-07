@@ -18,16 +18,16 @@ export default function Home() {
       <div className="header flex justify-center text-4xl font-bold my-4">
         <DropdownComponent />
       </div>
-      <div className="header flex justify-center text-4xl font-bold my-4">
+      <div className="header flex justify-center text-4xl font-bold mt-4 mb-1">
         {!togglereport && <ReportComponent />}
       </div>
-      <div className="header flex justify-center text-4xl font-bold my-4">
+      <div className="header flex justify-center text-4xl font-bold my-1">
         {!toggleform && <FormComponent />}
       </div>
-      <div className="header flex justify-center text-4xl font-bold my-4">
+      <div className="header flex justify-center text-4xl font-bold my-1">
         {toggleeditform && <EditformComponent />}
       </div>
-      <div className="header flex justify-center text-4xl font-bold my-4">
+      <div className="header flex justify-center text-4xl font-bold my-1">
         {!toggletrans && <TransactionsComponent />}
       </div>
     </div>

@@ -45,17 +45,11 @@ const EditformComponent = () => {
     <div className="Trans-Component my-4">
       <form
         onSubmit={formsubmit}
-        className="max-w-md mx-auto bg-gray-900/100 px-6 py-4 w-72 rounded-md border-2 border-red-600"
+        className="max-w-md mx-auto bg-gray-black px-6 py-4 w-72 rounded-md border-2 border-red-600"
       >
-        <p className="text-center text-red-500 font-medium my-1 p-2">Edit</p>
-        {transactions
-          .filter((element) => element.id === idforedit)
-          .map((e) => (
-            <div key={e.id} className="mt-0.5 mb-6">
-              <p className="text-start text-sm ">Old-Title : {e.title}</p>
-              <p className="text-start text-sm ">Old-Amount : {e.amount}</p>
-            </div>
-          ))}
+        <p className="text-center text-red-500 font-medium my-1 p-2 text-2xl">
+          Edit Transactions
+        </p>
         <div className="relative z-0 w-full mb-5 group mt-2.5">
           <input
             onChange={changetitle}
@@ -63,15 +57,15 @@ const EditformComponent = () => {
             type="text"
             name="title"
             id="title"
-            className="block py-2.5 px-0 w-full text-sm text-gray-200 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer"
+            className="block py-2.5 px-0 w-full text-sm text-gray-200 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer"
             placeholder=" "
             required
           />
           <label
             htmlFor="title"
-            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-red-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            ชื่อรายการ
+            ชื่อรายการใหม่
           </label>
         </div>
         <div className="relative z-0 w-full mb-5 group">
@@ -81,17 +75,25 @@ const EditformComponent = () => {
             type="text"
             name="amount"
             id="amount"
-            className="block py-2.5 px-0 w-full text-sm text-gray-200 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer"
+            className="block py-2.5 px-0 w-full text-sm text-gray-200 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer"
             placeholder=" "
             required
           />
           <label
             htmlFor="amount"
-            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-green-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-red-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
           >
-            จำนวนเงิน
+            จำนวนเงินใหม่
           </label>
         </div>
+        {transactions
+          .filter((element) => element.id === idforedit)
+          .map((e) => (
+            <div key={e.id} className="my-1 text-start">
+              <p className=" text-sm ">Old__Title : {e.title}</p>
+              <p className=" text-sm ">Old__Amount : {e.amount}</p>
+            </div>
+          ))}
         <div className="flex justify-center">
           <button
             type="submit"

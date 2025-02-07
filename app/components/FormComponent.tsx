@@ -39,6 +39,7 @@ const FormComponent = () => {
         onSubmit={formsubmit}
         className="max-w-md mx-auto bg-gray- p-6 w-72 rounded-md border-2 border-green-600"
       >
+        <p className="text-center text-green-500 font-medium my-1 p-2 text-2xl">New Transactions</p>
         <div className="relative z-0 w-full mb-5 group">
           <input
             onChange={changetitle}
