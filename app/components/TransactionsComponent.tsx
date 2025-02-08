@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import React, { useEffect } from "react";
 import { useGlobalState } from "../globalstate";
 import { Dropdown } from "flowbite-react";
@@ -40,15 +40,15 @@ const TransactionsComponent = () => {
   }
 
   return (
-    <div className="Trans-Component my-4">
+    <div className="Trans-Component my-2">
       <ul>
         {transactions.map((e) => (
           <li
             key={e.id}
             className={
               e.amount > 0
-                ? "w-72 px-6 py-3 my-3 text-black font-medium text-lg flex justify-between rounded-md bg-white shadow-xl shadow-green-600/90 relative"
-                : "w-72 px-6 py-3 my-3 text-black font-medium text-lg flex justify-between rounded-md bg-white shadow-xl shadow-red-600/90 relative"
+                ? "xxs:w-60 xs:w-64 sm:w-72 px-6 py-3 my-3 text-black font-medium text-lg flex justify-between rounded-md bg-white shadow-xl shadow-green-600/90 relative"
+                : "xxs:w-60 xs:w-64 sm:w-72 px-6 py-3 my-3 text-black font-medium text-lg flex justify-between rounded-md bg-white shadow-xl shadow-red-600/90 relative"
             }
           >
             <span className="ps-2.5">{e.title}</span>

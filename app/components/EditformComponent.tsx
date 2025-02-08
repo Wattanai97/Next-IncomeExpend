@@ -42,12 +42,12 @@ const EditformComponent = () => {
     setToggleform(false);
   };
   return (
-    <div className="Trans-Component my-4">
+    <div className="Trans-Component my-2">
       <form
         onSubmit={formsubmit}
-        className="max-w-md mx-auto bg-gray-black px-6 py-4 w-72 rounded-md border-2 border-red-600"
+        className="max-w-md mx-auto bg-gray-black px-6 py-4 xxs:w-60 xs:w-64 sm:w-72 rounded-md border-2 border-red-600"
       >
-        <p className="text-center text-red-500 font-medium my-1 p-2 text-2xl">
+        <p className="text-center text-red-500 font-medium my-1 p-2 xxs:text-lg xs:text-2xl sm:text-2xl">
           Edit Transactions
         </p>
         <div className="relative z-0 w-full mb-5 group mt-2.5">
