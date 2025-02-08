@@ -1,17 +1,24 @@
 import React, { useEffect, useState, MouseEvent } from "react";
 import { useGlobalState } from "@/app/globalstate";
+import Image from "next/image";
 
 const MonitorBacara = () => {
   const randomnum = useGlobalState().randomnum;
 
   const [playerimgcard1, setPlayerimgcard1] = useState<string>("");
   const [playerimgcard2, setPlayerimgcard2] = useState<string>("");
+  const [playerimgcard3, setPlayerimgcard3] = useState<string>("");
   const [bangerimgcard1, setBangerimgcard1] = useState<string>("");
   const [bangerimgcard2, setBangerimgcard2] = useState<string>("");
+  const [bangerimgcard3, setBangerimgcard3] = useState<string>("");
   const [playerpointcard1, setPlayerpointcard1] = useState<number>(0);
   const [playerpointcard2, setPlayerpointcard2] = useState<number>(0);
-  const [bangerpointcard1, setBangerpoincard1] = useState<number>(0);
-  const [bangerpointcard2, setBangerpoincard2] = useState<number>(0);
+  const [bangerpointcard1, setBangerpointcard1] = useState<number>(0);
+  const [bangerpointcard2, setBangerpointcard2] = useState<number>(0);
+  const [playerpoint, setPlayerpoint] = useState<number>(0);
+  // const [playerpoint2,setPlayerpoint2] = useState<number>(0);
+  const [bangerpoint, setBangerpoint] = useState<number>(0);
+  // const [bangerpoint2,setBangerpoint2] = useState<number>(0);
   //
   const cardData: Record<number, { img: string; point: number }> = {
     1: { img: "/img/a1.jpg", point: 1 },
@@ -23,7 +30,7 @@ const MonitorBacara = () => {
     7: { img: "/img/a7.jpg", point: 7 },
     8: { img: "/img/a8.jpg", point: 8 },
     9: { img: "/img/a9.jpg", point: 9 },
-    10: { img: "/img/a10.jpg", point: 0 },
+    10: { img: "/img/a10.jpg", point: 10 },
     11: { img: "/img/a11.jpg", point: 0 },
     12: { img: "/img/a12.jpg", point: 0 },
     13: { img: "/img/a13.jpg", point: 0 },
@@ -36,7 +43,7 @@ const MonitorBacara = () => {
     20: { img: "/img/b7.jpg", point: 7 },
     21: { img: "/img/b8.jpg", point: 8 },
     22: { img: "/img/b9.jpg", point: 9 },
-    23: { img: "/img/b10.jpg", point: 0 },
+    23: { img: "/img/b10.jpg", point: 10 },
     24: { img: "/img/b11.jpg", point: 0 },
     25: { img: "/img/b12.jpg", point: 0 },
     26: { img: "/img/b13.jpg", point: 0 },
@@ -49,7 +56,7 @@ const MonitorBacara = () => {
     33: { img: "/img/c7.jpg", point: 7 },
     34: { img: "/img/c8.jpg", point: 8 },
     35: { img: "/img/c9.jpg", point: 9 },
-    36: { img: "/img/c10.jpg", point: 0 },
+    36: { img: "/img/c10.jpg", point: 10 },
     37: { img: "/img/c11.jpg", point: 0 },
     38: { img: "/img/c12.jpg", point: 0 },
     39: { img: "/img/c13.jpg", point: 0 },
@@ -62,7 +69,7 @@ const MonitorBacara = () => {
     46: { img: "/img/d7.jpg", point: 7 },
     47: { img: "/img/d8.jpg", point: 8 },
     48: { img: "/img/d9.jpg", point: 9 },
-    49: { img: "/img/d10.jpg", point: 0 },
+    49: { img: "/img/d10.jpg", point: 10 },
     50: { img: "/img/d11.jpg", point: 0 },
     51: { img: "/img/d12.jpg", point: 0 },
     52: { img: "/img/d13.jpg", point: 0 },
@@ -76,16 +83,42 @@ const MonitorBacara = () => {
       const card = cardData[num];
       if (card) {
         setPlayerimgcard1(card.img);
-        setPlayerpointcard2(card.point);
+        setPlayerpointcard1(card.point);
       }
-      console.log(num);
+      setTimeout(async () => {
+        const num = await randomnum();
+        const card = cardData[num];
+        if (card) {
+          setBangerimgcard1(card.img);
+          setBangerpointcard1(card.point);
+        }
+        setTimeout(async () => {
+          const num = await randomnum();
+          const card = cardData[num];
+          if (card) {
+            setPlayerimgcard2(card.img);
+            setPlayerpointcard2(card.point);
+          }
+          setTimeout(async () => {
+            const num = await randomnum();
+            const card = cardData[num];
+            if (card) {
+              setBangerimgcard2(card.img);
+              setBangerpointcard2(card.point);
+              setPlayerpoint((playerpointcard1 + playerpointcard2) % 10);
+            }
+          }, 3000);
+        }, 3000);
+      }, 3000);
     }, 3000);
   };
 
   useEffect(() => {
-    console.log(`img : ${playerimgcard1}`);
-    console.log(`point : ${playerpointcard1}`);
-  }, [playerimgcard1, playerpointcard1]);
+    console.log(
+      `Player.Point_Card 1 : ${playerpointcard1} <>Player.Point_Card 2 : ${playerpointcard2}`
+    );
+    console.log(`Result : ${playerpoint}`);
+  }, [playerpoint]);
 
   return (
     <div>
@@ -97,20 +130,24 @@ mainMonitor-component
         <p className="text-center p-4 m-4 text-green-500 font-bold">
           Monitor-Bacara-Game
         </p>
-        {playerimgcard1.trim().length !== 0 && (
-          <div className="HeadName flex justify-between xxs:mx-2 xs:mx-2 sm:mx-20 md:mx-32 xxs:my-4">
-            <div className="xxs:mx-0">
+
+        <div className="HeadName flex justify-between xxs:mx-2 xs:mx-2 sm:mx-20 md:mx-32 xxs:my-4">
+          {playerimgcard1.trim().length !== 0 && (
+            <div className="Player xxs:mx-0">
               <span className="text-blue-600 text-2xl xxs:ps-8 xxs:font-medium xxs:text-sm md:text-2xl md:font-bold xxs:m-0 xs:ms-3 xs:text-xl xs:font-bold sm:ms-2 md:ms-2 ">
                 Player
               </span>
             </div>
-            <div className="xxs:mx-0">
+          )}
+          {bangerimgcard1.trim().length !== 0 && (
+            <div className="Banger xxs:mx-0">
               <span className="text-red-600 text-2xl xxs:pe-8 xxs:font-medium xxs:text-sm md:text-2xl  md:font-bold xxs:m-0 xs:me-3 xs:text-xl xs:font-bold sm:me-2 md:me-2 ">
                 Banger
               </span>
             </div>
-          </div>
-        )}
+          )}
+        </div>
+
         <div className="maincard flex justify-between xxs:mx-0 xs:mx-2 sm:mx-8 md:mx-10 mb-2">
           {/*  */}
           <div className="playercard flex xxs:mx-1 xs:mx-2.5 sm:mx-10 mx-16">
