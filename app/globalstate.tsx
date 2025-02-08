@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import {
   createContext,
   useContext,
@@ -24,20 +24,25 @@ interface transactionProps {
 
 // 🎯 กำหนด Type ของ State
 interface GlobalStateType {
-  transactions: transactionProps["transactions"]// transactionProps["transactions"];
+  transactions: transactionProps["transactions"]; // transactionProps["transactions"];
   setTransactions: Dispatch<SetStateAction<transactionProps["transactions"]>>;
-  setTogglereport: Dispatch<SetStateAction<boolean>>;
-  setToggleform: Dispatch<SetStateAction<boolean>>;
-  setToggleeditform: Dispatch<SetStateAction<boolean>>;
-  setToggletrans: Dispatch<SetStateAction<boolean>>;
   togglereport: boolean;
+  setTogglereport: Dispatch<SetStateAction<boolean>>;
   toggletrans: boolean;
+  setToggletrans: Dispatch<SetStateAction<boolean>>;
   toggleform: boolean;
+  setToggleform: Dispatch<SetStateAction<boolean>>;
   toggleeditform: boolean;
+  setToggleeditform: Dispatch<SetStateAction<boolean>>;
+  toggleGamebacara: boolean;
+  setToggleGamebacara: Dispatch<SetStateAction<boolean>>;
+  toggleGamelight: boolean;
+  setToggleGamelight: Dispatch<SetStateAction<boolean>>;
   report: transactionProps["report"];
   setReport: Dispatch<SetStateAction<transactionProps["report"]>>;
   idforedit: string;
   setIdforedit: Dispatch<SetStateAction<string>>;
+  randomnum:()=>number
 }
 
 // ➜ สร้าง Context
@@ -47,17 +52,23 @@ const GlobalStateContext = createContext<GlobalStateType | undefined>(
 
 // ➜ สร้าง Provider
 export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
-  const [transactions, setTransactions] = useState<GlobalStateType["transactions"]>([])
+  const [transactions, setTransactions] = useState<
+    GlobalStateType["transactions"]
+  >([]);
   const [togglereport, setTogglereport] = useState<boolean>(false);
   const [toggleform, setToggleform] = useState<boolean>(false);
   const [toggletrans, setToggletrans] = useState<boolean>(false);
   const [toggleeditform, setToggleeditform] = useState<boolean>(false);
+  const [toggleGamebacara, setToggleGamebacara] = useState<boolean>(true);
+  const [toggleGamelight, setToggleGamelight] = useState<boolean>(true);
   const [idforedit, setIdforedit] = useState<string>("");
   const [report, setReport] = useState<GlobalStateType["report"]>({
     sumin: 0,
     sumex: 0,
     result: 0,
   });
+// 
+  const randomnum = () => Math.floor(Math.random()*52)+1
 
   useEffect(() => {
     const sumin = transactions
@@ -82,20 +93,25 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
   return (
     <GlobalStateContext.Provider
       value={{
+        randomnum,
         report,
         setReport,
         transactions,
         setTransactions,
-        setTogglereport,
-        setToggleform,
-        setToggleeditform,
-        setToggletrans,
         togglereport,
+        setTogglereport,
         toggleform,
+        setToggleform,
         toggleeditform,
+        setToggleeditform,
         toggletrans,
-        setIdforedit,
+        setToggletrans,
+        toggleGamebacara,
+        setToggleGamebacara,
+        toggleGamelight,
+        setToggleGamelight,
         idforedit,
+        setIdforedit,
       }}
     >
       {children}

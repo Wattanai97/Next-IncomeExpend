@@ -32,14 +32,16 @@ const FormComponent = () => {
       return;
     }
     return;
-  };mx-4
+  };
   return (
     <div className="Trans-Component my-2">
       <form
         onSubmit={formsubmit}
         className="max-w-md mx-auto bg-gray- p-6 xxs:w-60 xs:w-64 sm:w-72 rounded-md border-2 border-green-600"
       >
-        <p className="text-center text-green-500 font-medium my-1 p-2 xxs:text-lg xs:text-1xl sm:text-2xl">New Transactions</p>
+        <p className="text-center text-green-500 font-medium my-1 p-2 xxs:text-lg xs:text-1xl sm:text-2xl">
+          New Transactions
+        </p>
         <div className="relative z-0 w-full mb-5 group">
           <input
             onChange={changetitle}

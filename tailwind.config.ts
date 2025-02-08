@@ -11,9 +11,10 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        xxs:"270px",
+        xxs:"250px",
         xs: "330px", // ✅ เพิ่ม Breakpoint xs
-        sm:"550px"
+        sm:"550px",
+        md:"879px"
       },
       colors: {
         background: "var(--background)",
