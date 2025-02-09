@@ -42,7 +42,42 @@ interface GlobalStateType {
   setReport: Dispatch<SetStateAction<transactionProps["report"]>>;
   idforedit: string;
   setIdforedit: Dispatch<SetStateAction<string>>;
-  randomnum:()=>number
+  randomnum: () => number;
+  playerimgcard1: string;
+  setPlayerimgcard1: Dispatch<SetStateAction<string>>;
+  playerimgcard2: string;
+  setPlayerimgcard2: Dispatch<SetStateAction<string>>;
+  playerimgcard3: string;
+  setPlayerimgcard3: Dispatch<SetStateAction<string>>;
+  //
+  playerpointcard1: number;
+  setPlayerpointcard1: Dispatch<SetStateAction<number>>;
+  playerpointcard2: number;
+  setPlayerpointcard2: Dispatch<SetStateAction<number>>;
+  playerpointcard3: number;
+  setPlayerpointcard3: Dispatch<SetStateAction<number>>;
+  playerpoint: number;
+  setPlayerpoint: Dispatch<SetStateAction<number>>;
+  playerpoint2: number;
+  setPlayerpoint2: Dispatch<SetStateAction<number>>;
+  //
+  bangerimgcard1: string;
+  setBangerimgcard1: Dispatch<SetStateAction<string>>;
+  bangerimgcard2: string;
+  setBangerimgcard2: Dispatch<SetStateAction<string>>;
+  bangerimgcard3: string;
+  setBangerimgcard3: Dispatch<SetStateAction<string>>;
+  //
+  bangerpointcard1: number;
+  setBangerpointcard1: Dispatch<SetStateAction<number>>;
+  bangerpointcard2: number;
+  setBangerpointcard2: Dispatch<SetStateAction<number>>;
+  bangerpointcard3: number;
+  setBangerpointcard3: Dispatch<SetStateAction<number>>;
+  bangerpoint: number;
+  setBangerpoint: Dispatch<SetStateAction<number>>;
+  bangerpoint2: number;
+  setBangerpoint2: Dispatch<SetStateAction<number>>;
 }
 
 // ➜ สร้าง Context
@@ -67,8 +102,26 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
     sumex: 0,
     result: 0,
   });
-// 
-  const randomnum = () => Math.floor(Math.random()*52)+1
+  //
+  const [playerimgcard1, setPlayerimgcard1] = useState<string>("");
+  const [playerimgcard2, setPlayerimgcard2] = useState<string>("");
+  const [playerimgcard3, setPlayerimgcard3] = useState<string>("");
+  const [bangerimgcard1, setBangerimgcard1] = useState<string>("");
+  const [bangerimgcard2, setBangerimgcard2] = useState<string>("");
+  const [bangerimgcard3, setBangerimgcard3] = useState<string>("");
+  const [playerpointcard1, setPlayerpointcard1] = useState<number>(0);
+  const [playerpointcard2, setPlayerpointcard2] = useState<number>(0);
+  const [playerpointcard3, setPlayerpointcard3] = useState<number>(0);
+  const [bangerpointcard1, setBangerpointcard1] = useState<number>(0);
+  const [bangerpointcard2, setBangerpointcard2] = useState<number>(0);
+  const [bangerpointcard3, setBangerpointcard3] = useState<number>(0);
+  const [playerpoint, setPlayerpoint] = useState<number>(0);
+  const [playerpoint2, setPlayerpoint2] = useState<number>(0);
+  // const [playerpoint2,setPlayerpoint2] = useState<number>(0);
+  const [bangerpoint, setBangerpoint] = useState<number>(0);
+  const [bangerpoint2, setBangerpoint2] = useState<number>(0);
+  // const [bangerpoint2,setBangerpoint2] = useState<number>(0);
+  const randomnum = () => Math.floor(Math.random() * 52) + 1;
 
   useEffect(() => {
     const sumin = transactions
@@ -87,12 +140,15 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
       sumex: sumex,
       result: sumin + sumex,
     });
-
-    console.log(transactions);
+    //
   }, [transactions]);
   return (
     <GlobalStateContext.Provider
       value={{
+        setBangerpoint2,
+        setPlayerpoint2,
+        playerpoint2,
+        bangerpoint2,
         randomnum,
         report,
         setReport,
@@ -112,6 +168,34 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
         setToggleGamelight,
         idforedit,
         setIdforedit,
+        playerimgcard1,
+        playerimgcard2,
+        playerimgcard3,
+        bangerimgcard1,
+        bangerimgcard2,
+        bangerimgcard3,
+        playerpointcard1,
+        playerpointcard2,
+        playerpointcard3,
+        bangerpointcard1,
+        bangerpointcard2,
+        bangerpointcard3,
+        playerpoint,
+        setPlayerpoint,
+        bangerpoint,
+        setBangerpoint,
+        setPlayerimgcard1,
+        setPlayerimgcard2,
+        setPlayerimgcard3,
+        setPlayerpointcard1,
+        setPlayerpointcard2,
+        setPlayerpointcard3,
+        setBangerimgcard1,
+        setBangerimgcard2,
+        setBangerimgcard3,
+        setBangerpointcard1,
+        setBangerpointcard2,
+        setBangerpointcard3,
       }}
     >
       {children}
