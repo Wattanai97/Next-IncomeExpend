@@ -16,9 +16,6 @@ const FormComponent = () => {
   };
   const formsubmit = async (event: FormEvent) => {
     event.preventDefault();
-    if (title.trim().length === 0 || amount.trim().length === 0) {
-      return alert("โปรดกรอกข้อมูลให้ครบถ้วน");
-    }
     const newtransaction = await {
       id: uuidv4(),
       title: title,
@@ -37,11 +34,14 @@ const FormComponent = () => {
     return;
   };
   return (
-    <div className="Trans-Component my-4">
+    <div className="Trans-Component my-2">
       <form
         onSubmit={formsubmit}
-        className="max-w-md mx-auto bg-gray- p-6 w-72 rounded-md border-2 border-green-600"
+        className="max-w-md mx-auto bg-gray- p-6 xxs:w-60 xs:w-64 sm:w-72 rounded-md border-2 border-green-600"
       >
+        <p className="text-center text-green-500 font-medium my-1 p-2 xxs:text-lg xs:text-1xl sm:text-2xl">
+          New Transactions
+        </p>
         <div className="relative z-0 w-full mb-5 group">
           <input
             onChange={changetitle}
@@ -64,7 +64,7 @@ const FormComponent = () => {
           <input
             value={amount}
             onChange={changeamount}
-            type="text"
+            type="number"
             name="amount"
             id="amount"
             className="block py-2.5 px-0 w-full text-sm text-gray-200 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer"
@@ -81,7 +81,7 @@ const FormComponent = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="sm:w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Submit
           </button>
