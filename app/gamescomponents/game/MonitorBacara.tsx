@@ -15,14 +15,6 @@ const MonitorBacara = () => {
     setBangerpoint,
   } = useGlobalState();
 
-  // const cardData = Array.from({ length: 52 }, (_, i) => ({
-  //   img: `/img/${String.fromCharCode(97 + Math.floor(i / 13))}${
-  //     (i % 13) + 1
-  //   }.jpg`,
-  //   point: [1, 10, 10, 10].includes((i % 13) + 1) ? 10 : (i % 13) + 1,
-  // }));
-
-  // 🃏 ปรับปรุงโครงสร้างให้ตรงกับไพ่ของคุณ
   const suits = ["a", "b", "c", "d"];
   const cardData: Record<number, { img: string; point: number }> = {};
 
@@ -105,34 +97,37 @@ const MonitorBacara = () => {
 
   return (
     <div>
-      <div className="mainMonitor-component bg-black border-2 border-gray-500 rounded-md xxs:h-[300px] xxs:w-[230px] xs:w-[280px]">
+      <div
+        className="mainMonitor-component bg-black border-2 border-gray-500 rounded-md xxs:h-[300px] xxs:w-[230px] xs:w-[310px] xs:h-[300px]
+      sm:w-[480px] sm:h-[400px] md:w-[850px] md:h-[500px]"
+      >
         <p className="text-center p-2 m-2 text-green-500 font-bold">
           Monitor-Bacara-Game
         </p>
-        <div className="HeadName flex justify-between ...">
+        <div className="HeadName flex justify-between xxs:my-0 xs:my-0 sm:mb-4 ">
           {playerimgcard.length > 0 && (
-            <span className="text-blue-600 xxs:text-lg font-semibold ps-7">
+            <span className="text-blue-600 xxs:text-lg xxs:font-semibold xxs:ps-7 xs:ps-10 xs:text-lg xs:font-semibold sm:ms-1 sm:ps-20 sm:text-2xl sm:font-bold md:ps-40 md:ms-4">
               Player
             </span>
           )}
           {bangerimgcard.length > 0 && (
-            <span className="text-red-600 xxs:text-lg font-semibold pe-7">
+            <span className="text-red-600 xxs:text-lg font-semibold xxs:pe-7 xs:pe-10 xs:text-lg xs:font-semibold sm:me-1 sm:pe-20 sm:text-2xl sm:font-bold md:pe-40 md:me-4">
               Banger
             </span>
           )}
         </div>
 
-        <div className="maincard grid grid-cols-2 xxs:px-0.5">
+        <div className="maincard grid grid-cols-2 xxs:px-0.5 xs:px-2.5">
           {[playerimgcard, bangerimgcard].map((cards, idx) => (
             <div key={idx} className={idx === 0 ? "playercard" : "bangercard"}>
-              <div className="grid grid-cols-2 xxs:mx-0.5">
+              <div className="grid grid-cols-2 xxs:mx-0.5 xs:mx-2 sm:mx-8 md:mx-20">
                 {cards.slice(0, 2).map((img, i) => (
                   <Image
                     key={i}
                     width={500}
                     height={600}
                     src={img}
-                    className="w-40 h-20"
+                    className="xxs:w-40 xxs:h-20 sm:w-40 sm:h-28 md:w-48 md:h-40"
                     alt="Card"
                   />
                 ))}
@@ -149,7 +144,7 @@ const MonitorBacara = () => {
                 width={500}
                 height={600}
                 src={img}
-                className="xxs:ms-7 xxs:my-0 xxs:py-0 w-14 h-22 rotate-90"
+                className="xxs:ms-7 xxs:my-0 xxs:py-0 xs:ms-12 xs:my-0 xs:py-0 sm:ms-20 xxs:w-14 xxs:h-22 sm:w-20 sm:h-32 md:ms-36 md:w-32 md:h-44 rotate-90"
                 alt="Card"
               />
             ) : null
@@ -157,12 +152,12 @@ const MonitorBacara = () => {
         </div>
         {playerCardsDrawn > 1 ? (
           <div className="HeadPoint flex justify-between ">
-            <span className="text-blue-600 text-1xl xxs:ps-10">
+            <span className="text-blue-600 xxs:font-semibold xss:text-1xl xxs:ps-10 xs:ps-16 sm:text-2xl sm:font-bold sm:ps-24 md:ps-48">
               {playerpoint} : P
             </span>
 
             {bangerCardsDrawn > 1 ? (
-              <span className="text-red-600 text-1xl xxs:pe-10">
+              <span className="text-red-600 xxs:font-semibold xxs:text-1xl xxs:pe-10 xs:pe-16 sm:text-2xl sm:font-bold sm:pe-24 md:pe-48">
                 {bangerpoint} : P
               </span>
             ) : (

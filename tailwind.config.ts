@@ -13,7 +13,7 @@ module.exports = {
       screens: {
         xxs:"250px",
         xs: "330px", // ✅ เพิ่ม Breakpoint xs
-        sm:"550px",
+        sm:"500px",
         md:"879px"
       },
       colors: {

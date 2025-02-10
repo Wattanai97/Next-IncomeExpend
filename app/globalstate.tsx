@@ -145,10 +145,6 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
   return (
     <GlobalStateContext.Provider
       value={{
-        // setBangerpoint2,
-        // setPlayerpoint2,
-        // playerpoint2,
-        // bangerpoint2,
         randomnum,
         report,
         setReport,
@@ -168,18 +164,6 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
         setToggleGamelight,
         idforedit,
         setIdforedit,
-        // playerimgcard1,
-        // playerimgcard2,
-        // playerimgcard3,
-        // bangerimgcard1,
-        // bangerimgcard2,
-        // bangerimgcard3,
-        // playerpointcard1,
-        // playerpointcard2,
-        // playerpointcard3,
-        // bangerpointcard1,
-        // bangerpointcard2,
-        // bangerpointcard3,
         playerpoint,
         setPlayerpoint,
         playerimgcard,
@@ -188,18 +172,6 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
         setBangerimgcard,
         bangerpoint,
         setBangerpoint,
-        // setPlayerimgcard1,
-        // setPlayerimgcard2,
-        // setPlayerimgcard3,
-        // setPlayerpointcard1,
-        // setPlayerpointcard2,
-        // setPlayerpointcard3,
-        // setBangerimgcard1,
-        // setBangerimgcard2,
-        // setBangerimgcard3,
-        // setBangerpointcard1,
-        // setBangerpointcard2,
-        // setBangerpointcard3,
       }}
     >
       {children}
