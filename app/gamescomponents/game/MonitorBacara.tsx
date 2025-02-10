@@ -15,16 +15,31 @@ const MonitorBacara = () => {
     setBangerpoint,
   } = useGlobalState();
 
-  const cardData = Array.from({ length: 52 }, (_, i) => ({
-    img: `/img/${String.fromCharCode(97 + Math.floor(i / 13))}${
-      (i % 13) + 1
-    }.jpg`,
-    point: [1, 10, 10, 10].includes((i % 13) + 1) ? 10 : (i % 13) + 1,
-  }));
+  // const cardData = Array.from({ length: 52 }, (_, i) => ({
+  //   img: `/img/${String.fromCharCode(97 + Math.floor(i / 13))}${
+  //     (i % 13) + 1
+  //   }.jpg`,
+  //   point: [1, 10, 10, 10].includes((i % 13) + 1) ? 10 : (i % 13) + 1,
+  // }));
+
+  // 🃏 ปรับปรุงโครงสร้างให้ตรงกับไพ่ของคุณ
+  const suits = ["a", "b", "c", "d"];
+  const cardData: Record<number, { img: string; point: number }> = {};
+
+  let index = 1;
+  for (let suit of suits) {
+    for (let rank = 1; rank <= 13; rank++) {
+      cardData[index] = {
+        img: `/img/${suit}${rank}.jpg`,
+        point: rank > 9 ? 0 : rank, // ไพ่ 10, J, Q, K = 0
+      };
+      index++;
+    }
+  }
 
   const [playerCardsDrawn, setPlayerCardsDrawn] = useState(0);
   const [bangerCardsDrawn, setBangerCardsDrawn] = useState(0);
-
+  const [textendgame, setTextendgame] = useState("เกมส์จบแล้วครับ");
   const resetGame = () => {
     setPlayerCardsDrawn(0);
     setBangerCardsDrawn(0);
@@ -50,6 +65,9 @@ const MonitorBacara = () => {
     }
   };
 
+  const Alertendgame = async () => {
+    alert(textendgame);
+  };
   const gamestart = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     alert("เกมส์จะเริ่มใน 3 วิ...");
@@ -71,35 +89,43 @@ const MonitorBacara = () => {
     await new Promise((res) => setTimeout(res, 3000));
     await drawCard(false);
     await new Promise((res) => setTimeout(res, 2000));
-    resetGame();
     alert("เกมส์จบแล้วครับ");
+    // resetGame();
   };
 
   useEffect(() => {
-    if (playerCardsDrawn === 2 && playerpoint <= 3) {
-      setTimeout(drawExtraCardForPlayer, 3000);
+    if (bangerCardsDrawn === 2 && playerCardsDrawn === 2 && playerpoint <= 3) {
+      setTimeout(drawExtraCardForPlayer, 1000);
     }
-  }, [playerpoint, playerCardsDrawn]);
+    //
+    if (bangerCardsDrawn === 2 && playerCardsDrawn === 2 && playerpoint > 3) {
+      setTimeout(Alertendgame, 1000);
+    }
+  }, [playerpoint, playerCardsDrawn, bangerCardsDrawn]);
 
   return (
     <div>
-      <div className="mainMonitor-component bg-black border-2 border-gray-500 rounded-md ...">
+      <div className="mainMonitor-component bg-black border-2 border-gray-500 rounded-md xxs:h-[300px] xxs:w-[230px] xs:w-[280px]">
         <p className="text-center p-2 m-2 text-green-500 font-bold">
           Monitor-Bacara-Game
         </p>
         <div className="HeadName flex justify-between ...">
           {playerimgcard.length > 0 && (
-            <span className="text-blue-600 text-2xl">Player</span>
+            <span className="text-blue-600 xxs:text-lg font-semibold ps-7">
+              Player
+            </span>
           )}
           {bangerimgcard.length > 0 && (
-            <span className="text-red-600 text-2xl">Banger</span>
+            <span className="text-red-600 xxs:text-lg font-semibold pe-7">
+              Banger
+            </span>
           )}
         </div>
 
-        <div className="maincard grid grid-cols-2 ...">
+        <div className="maincard grid grid-cols-2 xxs:px-0.5">
           {[playerimgcard, bangerimgcard].map((cards, idx) => (
             <div key={idx} className={idx === 0 ? "playercard" : "bangercard"}>
-              <div className="grid grid-cols-2">
+              <div className="grid grid-cols-2 xxs:mx-0.5">
                 {cards.slice(0, 2).map((img, i) => (
                   <Image
                     key={i}
@@ -115,7 +141,7 @@ const MonitorBacara = () => {
           ))}
         </div>
 
-        <div className="Card3 grid grid-cols-2 ...">
+        <div className="Card3 grid grid-cols-2 ">
           {[playerimgcard[2], bangerimgcard[2]].map((img, i) =>
             img ? (
               <Image
@@ -123,17 +149,29 @@ const MonitorBacara = () => {
                 width={500}
                 height={600}
                 src={img}
-                className="w-14 h-22 rotate-90"
+                className="xxs:ms-7 xxs:my-0 xxs:py-0 w-14 h-22 rotate-90"
                 alt="Card"
               />
             ) : null
           )}
         </div>
+        {playerCardsDrawn > 1 ? (
+          <div className="HeadPoint flex justify-between ">
+            <span className="text-blue-600 text-1xl xxs:ps-10">
+              {playerpoint} : P
+            </span>
 
-        <div className="HeadPoint flex justify-between ...">
-          <span className="text-blue-600 text-1xl">{playerpoint} : P</span>
-          <span className="text-red-600 text-1xl">{bangerpoint} : P</span>
-        </div>
+            {bangerCardsDrawn > 1 ? (
+              <span className="text-red-600 text-1xl xxs:pe-10">
+                {bangerpoint} : P
+              </span>
+            ) : (
+              <></>
+            )}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
       <div className="btn flex justify-center">
         <button
