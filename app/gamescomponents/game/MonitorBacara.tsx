@@ -13,6 +13,8 @@ const MonitorBacara = () => {
     setPlayerpoint,
     bangerpoint,
     setBangerpoint,
+    team,
+    setTeam,
   } = useGlobalState();
 
   const suits = ["a", "b", "c", "d"];
@@ -40,6 +42,7 @@ const MonitorBacara = () => {
     setPlayerimgcard([]);
     setBangerimgcard([]);
   };
+  const [winner, setWinner] = useState<boolean>(false);
 
   const drawCard = async (isPlayer: boolean) => {
     const num = randomnum();
@@ -57,12 +60,11 @@ const MonitorBacara = () => {
     }
   };
 
-  const Alertendgame = async () => {
-    alert(textendgame);
-  };
-  const gamestart = async (event: MouseEvent<HTMLButtonElement>) => {
+  //
+  const gamestartforplayer = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    alert("เกมส์จะเริ่มใน 3 วิ...");
+    setTeam(true);
+    alert("คุณเลือกฝั่ง Player เกมส์จะเริ่มใน 3 วิ...");
     resetGame();
     await new Promise((res) => setTimeout(res, 3000));
 
@@ -74,7 +76,23 @@ const MonitorBacara = () => {
     await new Promise((res) => setTimeout(res, 3000));
     await drawCard(false);
   };
+  //
+  const gamestartforbanger = async (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setTeam(false);
+    alert("คุณเลือกฝั่ง Banger เกมส์จะเริ่มใน 3 วิ...");
+    resetGame();
+    await new Promise((res) => setTimeout(res, 3000));
 
+    await drawCard(true);
+    await new Promise((res) => setTimeout(res, 3000));
+    await drawCard(false);
+    await new Promise((res) => setTimeout(res, 3000));
+    await drawCard(true);
+    await new Promise((res) => setTimeout(res, 3000));
+    await drawCard(false);
+  };
+  //
   const drawExtraCardForPlayer = async () => {
     await new Promise((res) => setTimeout(res, 1000));
     await drawCard(true);
@@ -82,18 +100,42 @@ const MonitorBacara = () => {
     await drawCard(false);
     await new Promise((res) => setTimeout(res, 2000));
     alert("เกมส์จบแล้วครับ");
-    // resetGame();
+    await new Promise((res) => setTimeout(res, 2000));
+    await resetGame();
   };
 
   useEffect(() => {
-    if (bangerCardsDrawn === 2 && playerCardsDrawn === 2 && playerpoint <= 3) {
-      setTimeout(drawExtraCardForPlayer, 1000);
-    }
+
+    bangerCardsDrawn === 2 && playerCardsDrawn === 2 && playerpoint <= 3
+      ? setTimeout(drawExtraCardForPlayer, 1000) 
+      : null
+
+    bangerCardsDrawn === 2  && playerpoint >3 
+    ? setWinner((prev)=>!prev) : setWinner((prev)=>prev)
+
     //
-    if (bangerCardsDrawn === 2 && playerCardsDrawn === 2 && playerpoint > 3) {
-      setTimeout(Alertendgame, 1000);
-    }
-  }, [playerpoint, playerCardsDrawn, bangerCardsDrawn]);
+
+    bangerCardsDrawn === 3 &&
+    playerCardsDrawn === 3 &&
+    bangerimgcard.length === 3 &&
+    playerpoint > bangerpoint 
+      ? setWinner(true)
+      : setWinner(false);
+
+    bangerCardsDrawn === 3 && playerCardsDrawn === 3
+      ? console.log(winner)
+      : null;
+    bangerCardsDrawn === 2 && playerCardsDrawn === 2 
+      ? console.log(winner)
+      : null;
+  }, [
+    playerpoint,
+    playerCardsDrawn,
+    bangerCardsDrawn,
+    winner,
+    bangerimgcard,
+    bangerpoint,
+  ]);
 
   return (
     <div>
@@ -168,13 +210,23 @@ const MonitorBacara = () => {
           <></>
         )}
       </div>
-      <div className="btn flex justify-center">
-        <button
-          onClick={gamestart}
-          className="bg-violet-700 text-white px-4 w-48 py-2 rounded"
-        >
-          เริ่มเกมส์
-        </button>
+      <div className="btn flex justify-center my-4">
+        <div className="mx-16">
+          <button
+            onClick={gamestartforplayer}
+            className="bg-blue-800 font-bold text-white px-4 w-48 py-2 rounded"
+          >
+            Select Player
+          </button>
+        </div>
+        <div className="mx-16">
+          <button
+            onClick={gamestartforbanger}
+            className="bg-red-800 font-bold text-white px-4 w-48 py-2 rounded"
+          >
+            Select Banger
+          </button>
+        </div>
       </div>
     </div>
   );

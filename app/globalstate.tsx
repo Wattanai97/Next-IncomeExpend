@@ -45,39 +45,14 @@ interface GlobalStateType {
   randomnum: () => number;
   playerimgcard: string[];
   setPlayerimgcard: Dispatch<SetStateAction<string[]>>;
-  // playerimgcard2: string;
-  // setPlayerimgcard2: Dispatch<SetStateAction<string>>;
-  // playerimgcard3: string;
-  // setPlayerimgcard3: Dispatch<SetStateAction<string>>;
-  //
-  // playerpointcard1: number;
-  // setPlayerpointcard1: Dispatch<SetStateAction<number>>;
-  // playerpointcard2: number;
-  // setPlayerpointcard2: Dispatch<SetStateAction<number>>;
-  // playerpointcard3: number;
-  // setPlayerpointcard3: Dispatch<SetStateAction<number>>;
   playerpoint: number;
   setPlayerpoint: Dispatch<SetStateAction<number>>;
-  // playerpoint2: number;
-  // setPlayerpoint2: Dispatch<SetStateAction<number>>;
-  //
   bangerimgcard: string[];
   setBangerimgcard: Dispatch<SetStateAction<string[]>>;
-  // bangerimgcard2: string;
-  // setBangerimgcard2: Dispatch<SetStateAction<string>>;
-  // bangerimgcard3: string;
-  // setBangerimgcard3: Dispatch<SetStateAction<string>>;
-  //
-  // bangerpointcard1: number;
-  // setBangerpointcard1: Dispatch<SetStateAction<number>>;
-  // bangerpointcard2: number;
-  // setBangerpointcard2: Dispatch<SetStateAction<number>>;
-  // bangerpointcard3: number;
-  // setBangerpointcard3: Dispatch<SetStateAction<number>>;
   bangerpoint: number;
   setBangerpoint: Dispatch<SetStateAction<number>>;
-  // bangerpoint2: number;
-  // setBangerpoint2: Dispatch<SetStateAction<number>>;
+  team: boolean | undefined;
+  setTeam: Dispatch<SetStateAction<boolean | undefined>>;
 }
 
 // ➜ สร้าง Context
@@ -87,6 +62,7 @@ const GlobalStateContext = createContext<GlobalStateType | undefined>(
 
 // ➜ สร้าง Provider
 export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
+  const [team,setTeam] = useState<boolean|undefined>(undefined)
   const [transactions, setTransactions] = useState<
     GlobalStateType["transactions"]
   >([]);
@@ -104,23 +80,13 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
   });
   //
   const [playerimgcard, setPlayerimgcard] = useState<string[]>([]);
-  // const [playerimgcard2, setPlayerimgcard2] = useState<string>("");
-  // const [playerimgcard3, setPlayerimgcard3] = useState<string>("");
+
   const [bangerimgcard, setBangerimgcard] = useState<string[]>([]);
-  // const [bangerimgcard2, setBangerimgcard2] = useState<string>("");
-  // const [bangerimgcard3, setBangerimgcard3] = useState<string>("");
-  // const [playerpointcard1, setPlayerpointcard1] = useState<number>(0);
-  // const [playerpointcard2, setPlayerpointcard2] = useState<number>(0);
-  // const [playerpointcard3, setPlayerpointcard3] = useState<number>(0);
-  // const [bangerpointcard1, setBangerpointcard1] = useState<number>(0);
-  // const [bangerpointcard2, setBangerpointcard2] = useState<number>(0);
-  // const [bangerpointcard3, setBangerpointcard3] = useState<number>(0);
+
   const [playerpoint, setPlayerpoint] = useState<number>(0);
-  // const [playerpoint2, setPlayerpoint2] = useState<number>(0);
-  // const [playerpoint2,setPlayerpoint2] = useState<number>(0);
+
   const [bangerpoint, setBangerpoint] = useState<number>(0);
-  // const [bangerpoint2, setBangerpoint2] = useState<number>(0);
-  // const [bangerpoint2,setBangerpoint2] = useState<number>(0);
+
   const randomnum = () => Math.floor(Math.random() * 52) + 1;
 
   useEffect(() => {
@@ -172,6 +138,7 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
         setBangerimgcard,
         bangerpoint,
         setBangerpoint,
+        team,setTeam
       }}
     >
       {children}
