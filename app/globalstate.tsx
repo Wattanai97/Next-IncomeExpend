@@ -51,8 +51,8 @@ interface GlobalStateType {
   setBangerimgcard: Dispatch<SetStateAction<string[]>>;
   bangerpoint: number;
   setBangerpoint: Dispatch<SetStateAction<number>>;
-  team: boolean | undefined;
-  setTeam: Dispatch<SetStateAction<boolean | undefined>>;
+  team: string;
+  setTeam: Dispatch<SetStateAction<string>>;
 }
 
 // ➜ สร้าง Context
@@ -62,7 +62,7 @@ const GlobalStateContext = createContext<GlobalStateType | undefined>(
 
 // ➜ สร้าง Provider
 export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
-  const [team,setTeam] = useState<boolean|undefined>(undefined)
+  const [team,setTeam] = useState<string>("")
   const [transactions, setTransactions] = useState<
     GlobalStateType["transactions"]
   >([]);

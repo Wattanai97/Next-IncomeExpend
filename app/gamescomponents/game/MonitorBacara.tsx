@@ -34,6 +34,8 @@ const MonitorBacara = () => {
   const [playerCardsDrawn, setPlayerCardsDrawn] = useState(0);
   const [bangerCardsDrawn, setBangerCardsDrawn] = useState(0);
   const [textendgame, setTextendgame] = useState("เกมส์จบแล้วครับ");
+  const [textwhowin, setTextwhowin] = useState<string>("");
+  const [button, setButton] = useState<boolean>(false);
   const resetGame = () => {
     setPlayerCardsDrawn(0);
     setBangerCardsDrawn(0);
@@ -41,6 +43,9 @@ const MonitorBacara = () => {
     setBangerpoint(0);
     setPlayerimgcard([]);
     setBangerimgcard([]);
+    setTeam("");
+    setTextwhowin("");
+    setButton(false);
   };
   const [winner, setWinner] = useState<boolean>(false);
 
@@ -63,9 +68,10 @@ const MonitorBacara = () => {
   //
   const gamestartforplayer = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    setTeam(true);
     alert("คุณเลือกฝั่ง Player เกมส์จะเริ่มใน 3 วิ...");
     resetGame();
+    setTeam("Player");
+    setButton((prev) => !prev);
     await new Promise((res) => setTimeout(res, 3000));
 
     await drawCard(true);
@@ -78,10 +84,11 @@ const MonitorBacara = () => {
   };
   //
   const gamestartforbanger = async (event: MouseEvent<HTMLButtonElement>) => {
+    setButton((prev) => !prev);
     event.preventDefault();
-    setTeam(false);
     alert("คุณเลือกฝั่ง Banger เกมส์จะเริ่มใน 3 วิ...");
     resetGame();
+    setTeam("Banger");
     await new Promise((res) => setTimeout(res, 3000));
 
     await drawCard(true);
@@ -94,40 +101,68 @@ const MonitorBacara = () => {
   };
   //
   const drawExtraCardForPlayer = async () => {
-    await new Promise((res) => setTimeout(res, 1000));
+    await new Promise((res) => setTimeout(res, 1500));
     await drawCard(true);
     await new Promise((res) => setTimeout(res, 3000));
     await drawCard(false);
-    await new Promise((res) => setTimeout(res, 2000));
-    alert("เกมส์จบแล้วครับ");
-    await new Promise((res) => setTimeout(res, 2000));
+    await new Promise((res) => setTimeout(res, 1500));
+    await alert("เกมส์จบแล้วครับ");
+    await new Promise((res) => setTimeout(res, 1000));
     await resetGame();
   };
 
   useEffect(() => {
-
     bangerCardsDrawn === 2 && playerCardsDrawn === 2 && playerpoint <= 3
-      ? setTimeout(drawExtraCardForPlayer, 1000) 
-      : null
-
-    bangerCardsDrawn === 2  && playerpoint >3 
-    ? setWinner((prev)=>!prev) : setWinner((prev)=>prev)
-
+      ? setTimeout(drawExtraCardForPlayer, 1500)
+      : null;
     //
-
-    bangerCardsDrawn === 3 &&
-    playerCardsDrawn === 3 &&
-    bangerimgcard.length === 3 &&
-    playerpoint > bangerpoint 
-      ? setWinner(true)
-      : setWinner(false);
-
-    bangerCardsDrawn === 3 && playerCardsDrawn === 3
-      ? console.log(winner)
+    bangerCardsDrawn === 2 && playerCardsDrawn === 2 && playerpoint >= 4
+      ? setTimeout(() => {
+          alert("เกมส์จบแล้วครับ");
+          resetGame();
+        }, 3000)
       : null;
-    bangerCardsDrawn === 2 && playerCardsDrawn === 2 
-      ? console.log(winner)
+    //
+    team === "Player"
+      ? bangerCardsDrawn === 2 && playerCardsDrawn === 2
+        ? playerpoint >= 4 && playerpoint > bangerpoint
+          ? setTextwhowin("PlayerWin You win")
+          : playerpoint >= 4 && playerpoint === bangerpoint
+          ? setTextwhowin("Drew เสมอกันครับ")
+          : playerpoint >= 4 && bangerpoint > playerpoint
+          ? setTextwhowin("BangerWin You Lose")
+          : null
+        : null
+      : bangerCardsDrawn === 2 && playerCardsDrawn === 2
+      ? playerpoint >= 4 && playerpoint > bangerpoint
+        ? setTextwhowin("PlayerWin You Lose")
+        : playerpoint >= 4 && playerpoint === bangerpoint
+        ? setTextwhowin("Drew เสมอกันครับ")
+        : playerpoint >= 4 && bangerpoint > playerpoint
+        ? setTextwhowin("BangerWin You Win")
+        : null
       : null;
+    //
+    team === "Player"
+      ? bangerCardsDrawn === 3 && playerCardsDrawn === 3
+        ? playerpoint > bangerpoint
+          ? setTextwhowin("PlayerWin You win")
+          : playerpoint === bangerpoint
+          ? setTextwhowin("Drew เสมอกันครับ")
+          : bangerpoint > playerpoint
+          ? setTextwhowin("BangerWin You Lose")
+          : null
+        : null
+      : bangerCardsDrawn === 3 && playerCardsDrawn === 3
+      ? playerpoint > bangerpoint
+        ? setTextwhowin("PlayerWin You Lose")
+        : playerpoint === bangerpoint
+        ? setTextwhowin("Drew เสมอกันครับ")
+        : bangerpoint > playerpoint
+        ? setTextwhowin("BangerWin You Win")
+        : null
+      : null;
+    //
   }, [
     playerpoint,
     playerCardsDrawn,
@@ -135,13 +170,14 @@ const MonitorBacara = () => {
     winner,
     bangerimgcard,
     bangerpoint,
+    team,
   ]);
 
   return (
     <div>
       <div
-        className="mainMonitor-component bg-black border-2 border-gray-500 rounded-md xxs:h-[300px] xxs:w-[230px] xs:w-[310px] xs:h-[300px]
-      sm:w-[480px] sm:h-[400px] md:w-[850px] md:h-[500px]"
+        className="mainMonitor-component bg-black border-2 border-gray-500 rounded-md xxs:h-[330px] xxs:w-[230px] xs:w-[310px] xs:h-[300px]
+      sm:w-[480px] sm:h-[400px] md:w-[850px] md:h-[550px] relative"
       >
         <p className="text-center p-2 m-2 text-green-500 font-bold">
           Monitor-Bacara-Game
@@ -209,25 +245,43 @@ const MonitorBacara = () => {
         ) : (
           <></>
         )}
-      </div>
-      <div className="btn flex justify-center my-4">
-        <div className="mx-16">
-          <button
-            onClick={gamestartforplayer}
-            className="bg-blue-800 font-bold text-white px-4 w-48 py-2 rounded"
-          >
-            Select Player
-          </button>
+        {/*  */}
+        <div
+          className="btn grid grid-cols-2 xxs:px-0.5 xxs:gap-x-0 xs:gap-x-4 xs:px-0.5 absolute bottom-0 xs:mx-8 xs:my-1.5 sm:mx-24 sm:px-0.5 sm:gap-6 sm:my-3 
+        md:mx-56 md:gap-x-10 md:px-1.5"
+        >
+          <div className="xxs:px-0 xxs:mx-0">
+            <button
+              disabled={button}
+              onClick={gamestartforplayer}
+              className="bg-blue-800 font-bold text-white xxs:px-0.5 xxs:w-28 xxs:font-medium xxs:py-1 xxs:text-sm px-4 w-48 py-2
+              sm:font-bold sm:text-md sm:px-3 sm:py-2 sm:w-32 md:text-xl md:w-44 rounded text-center"
+            >
+              Select Player
+            </button>
+          </div>
+          <div className="xxs:px-0 xxs:mx-0">
+            <button
+              disabled={button}
+              onClick={gamestartforbanger}
+              className="bg-red-800 font-bold text-white xxs:px-0.5 xxs:w-28 xxs:font-medium xxs:py-1 xxs:text-sm px-4 w-48 py-2 
+              sm:font-bold sm:text-md sm:px-3 sm:py-2 sm:w-32 md:text-xl md:w-44 rounded text-center"
+            >
+              Select Banger
+            </button>
+          </div>
         </div>
-        <div className="mx-16">
-          <button
-            onClick={gamestartforbanger}
-            className="bg-red-800 font-bold text-white px-4 w-48 py-2 rounded"
-          >
-            Select Banger
-          </button>
-        </div>
+        {/*  */}
       </div>
+      {/*  */}
+      <div className="text-winner my-4">
+        {textwhowin && (
+          <p className="my-4 text-green-600 text-center font-bold xxs:text-lg text-2xl">
+            {textwhowin}
+          </p>
+        )}
+      </div>
+      {/*  */}
     </div>
   );
 };
